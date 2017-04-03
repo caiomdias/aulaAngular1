@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myapp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="angular.min.js"></script>
+    <title>{{ console }}</title>
+
+    <script>
+    var app = angular.module('myapp',[])
+    .controller('userController', userController)
+    .controller('cursoController', cursoController)
+    .controller('profController', profController);
+//---------------------------------------------------------------------- FILTROS
+     app.filter('materia', function () {
+             return function (profmat) {
+                 if (profmat) {
+                    if (profmat == 01)
+                        return 'Be MEAN';
+
+                    if (profmat == 02)
+                         return 'Angular';
+
+                     if (profmat == 03)
+                         return 'node.js';
+
+                     return 'materia invalida';
+                }
+             }
+            
+        })
+
+//---------------------------------------------------------------------- /FILTROS
+    function userController(){
+        var vm = this;
+        vm.console = " aula de controllers - USUARIOS"
+        vm.users = [
+            {name: 'Suissa', email: 'teste01@exemplo.com'},
+            {name: 'João', email: 'teste02@exemplo.com'},
+            {name: 'Franciele', email: 'teste03@exemplo.com'}
+        ];
+        
+    }
+    
+    function cursoController(){
+        var vm = this;
+        vm.console = " aula de controllers - CURSOS"
+         vm.cursos = [
+            {name: 'Be MEAN', professor: 'carlos'},
+            {name: 'Angular', professor: 'juan'},
+            {name: 'Node.js', professor: 'ana'}
+        ];
+    }
+
+    function profController(){
+        var vm = this;
+        vm.console = "aula de controllers - PROFESSORES"
+        vm.professores = [
+            {name: 'carlos', mat: '01'},
+            {name: 'juan', mat: '02'},
+            {name: 'ana', mat: '03'} 
+        ];
+    }
+    
+    </script>
+</head>
+<body ng-controller="userController as User">
+    <h2> {{ User.console | uppercase }} </h2>
+    <ul>
+        <li ng-repeat="user in User.users">
+            {{ user.name }} - {{ user.email }}
+        </li>
+    </ul>
+    <div ng-controller="cursoController as Curso">
+        <h2> {{ Curso.console | uppercase }} </h2>
+        <ul>
+        <li ng-repeat="curso in Curso.cursos">
+            {{ curso.name }} - {{ curso.professor }}
+        </li>
+    </ul>
+    </div>
+    <div ng-controller="profController as Prof">
+        <h2> {{ Prof.console | uppercase }} </h2>
+        <ul>
+            <li ng-repeat=" professor in Prof.professores ">
+                 {{ professor.name }} - {{ professor.mat }}
+            </li>
+        </ul>
+    </div>
+    <div>
+        <label>
+            entre com o codigo da materia  
+        <input type="number" ng-model="matt" >
+        voce esta cadastrado na materia: {{ matt | materia }} 
+        </label>
+    </div>
+
+</body>
+</html>

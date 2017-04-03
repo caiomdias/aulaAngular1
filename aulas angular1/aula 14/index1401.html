@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myapp">
+
+<head>
+    <style>
+        html body select {
+            display: inline-block;
+        }
+        
+        [disabled] {
+            background-color: #ccc !important;
+        }
+        
+        h2 {
+            text-align: center;
+        }
+        
+        .wrapper {
+            width: 650px;
+            margin: 0 auto;
+        }
+       
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="angular.min.js"></script>
+    <!--Import Google Icon Font-->
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Import ngMessages-->
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-messages.js"></script>
+    <title>{{ User.console }}</title>
+
+    <script>
+        var app = angular.module('myapp', ['ngMessages'])
+            .controller('userController', userController)
+
+        function userController() {
+            var vm = this;
+            vm.form = {};
+            vm.console = "CRUD";
+            vm.editing = false;
+            vm.regexPhone = /9?([0-9]{4})-?([0-9]{4})/;
+            vm.regexDate = /\d{2}[-.]?\d{2}[-.]?\d{4}/;
+            vm.regexCode = /\b\d{2}\b/;
+            vm.regexPass = /\d{8}/;
+            vm.users = [
+                { name: 'Suissa', email: 'teste01@exemplo.com', cod: '01', type: 'teacher', active: 'true' },
+                { name: 'João', email: 'teste02@exemplo.com', cod: '02', type: 'teacher', active: 'false' },
+                { name: 'Franciele', email: 'teste03@exemplo.com', cod: '03', type: 'teacher', active: 'false' },
+                { name: 'caio', email: 'teste04@exemplo.com', cod: '04', type: 'student', active: 'true' },
+                { name: 'amanda', email: 'teste05@exemplo.com', cod: '05', type: 'student', active: 'true' }
+            ];
+
+            function add(user) {
+                vm.users.push(user);
+            };
+
+            vm.add = add;
+
+
+            function remove(users) {
+                vm.users = users.filter(function (el) {
+                    return !el.selecionado
+                });
+            }
+            vm.remove = remove;
+
+            function edit(user, index) {
+                vm.editing = true;
+                vm.form = angular.copy(user);
+                vm.form.index = index;
+            };
+            vm.edit = edit;
+
+            function save(form) {
+                vm.users.forEach(function (value, index, array) {
+                    if (index == form.index) {
+                        delete form.index;
+                        array[index] = form;
+                        vm.editing = false;
+                    }
+
+                });
+            }
+            vm.save = save;
+
+            function submitForm(user) {
+                add(user);
+            };
+            vm.submitForm = submitForm;
+
+        }
+    </script>
+</head>
+
+<body ng-controller="userController as User">
+    <section class="row wrapper">
+        <form name="searchForm">
+            <div>
+                <input type="text" name="search" ng-model="search" ng-model-options="{ updateOn:'blur default',  debounce:{ default:3000, blur: 0 }}"
+                 placeholder="Search">
+            </div>
+        </form>
+        <article>
+            <p>
+                busca: {{ search }}
+            </p>
+        </article>
+
+    </section>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.js"></script>
+    <!--Import jQuery before materialize.js-->
+      <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+      <script type="text/javascript" src="js/materialize.min.js"></script>
+</body>
+</html>

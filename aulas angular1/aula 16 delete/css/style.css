@@ -1,0 +1,16 @@
+html body select {
+            display: inline-block;
+        }
+        
+        [disabled] {
+            background-color: #ccc !important;
+        }
+        
+        h2 {
+            text-align: center;
+        }
+        
+        .wrapper {
+            width: 700px;
+            margin: 0 auto;
+        }

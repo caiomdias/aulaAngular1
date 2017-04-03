@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myapp">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="angular.min.js"></script>
+    <script>
+        var app = angular.module('myapp', []);
+
+        app.controller('main', function ($scope) {           
+        })
+
+        app.filter('hora', function () {
+            return function (horario) {
+                if (horario) {
+                    if (horario < 12.00)
+                       return 'bom dia';
+
+                    if ((horario >= 12.00) && (horario < 18.00))
+                        return 'boa tarde';
+
+                    if (horario > 23.59)
+                        return 'hora invalida';
+
+                    return 'boa noite';
+                }
+            }
+            
+        })
+    </script>
+</head>
+
+<body ng-controller="main">
+    <div>
+        <label>
+            digite um horario entre 0.00 e 23.59 - 
+            <input type="number" ng-model="data">
+            {{ data | hora }}
+        </label>
+    </div>
+</body>
+</html>

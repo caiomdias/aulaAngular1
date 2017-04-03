@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-br" ng-app="myapp">
+<head>
+
+    <style>
+        .table{
+            width: 500px;
+        }
+
+        .div{
+            width: 500px;
+            height: 400px;
+        }
+    </style>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="angular.min.js"></script>
+    <title>Document</title>
+    <script>
+        angular.module('myapp', [])
+
+        .controller('exctrl', ['$scope', function($scope){
+            $scope.numb = [1,2,3];
+            $scope.numbLimt = "";
+        }]);
+        
+
+    </script>
+</head>
+<body ng-controller="exctrl">
+    <div>
+        <table>
+            <tr>
+                <th>
+                <label>
+                    <input type="text" ng-model="nome01" placeholder="nome">
+                </label>
+                </th>
+            <th>
+                <label>
+                    <input type="text" ng-model="nome02"placeholder="NOME">
+                </label>
+            </th>
+            <th>
+                <label>
+                    <input type="number" ng-model="numero03" placeholder="numero">
+                </label>
+            </th>
+            <th>
+                <label>
+                    <input type="text" ng-model="nome04" placeholder="moeda">
+                </label>
+            </th>
+            <th>
+                <label>
+                    <input type="number" ng-model="numbLimt" placeholder="limite de 3">
+                </label>
+            </th>
+            </tr>
+            <tr>
+                <td>
+                    uppercase: {{ nome01 | uppercase }}
+                </td>
+                <td>
+                    exemplo02: {{ nome02 | lowercase }}
+                </td>
+                <td>
+                    exemplo03: {{ numero03 | number }}
+                </td>
+                <td>
+                    exemplo04: {{ nome04 | currency:"USD$":0 }}
+                </td>
+                <td>
+                   exemplo05: {{ numb | limitTo: numbLimt  }}
+                </td>
+            </tr>
+        </table>   
+    </div>
+</body>
+</html>

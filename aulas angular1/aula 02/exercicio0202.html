@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myapp">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="angular.min.js"></script>
+    <title>Document</title>
+
+    <script>
+        var app = angular.module('myapp', []);
+
+        app.controller('main', function ($scope) {
+            // $scope.data = undefined;
+        });
+
+        app.filter('dtnac', function () {
+            return function (valor) {
+                if (valor) {
+                    if (valor < 18)
+                        return 'menor 18'
+                    else
+                        return 'maior 18';
+                }
+            }
+        })
+    </script>
+</head>
+
+<body ng-controller="main">
+    <div>
+        <label>
+            digite sua idade
+            <input type="number" ng-model="data" >
+            voce é {{ data | dtnac }}
+        </label>
+    </div>
+</body>
+
+</html>

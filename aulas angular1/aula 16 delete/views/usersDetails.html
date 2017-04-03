@@ -1,0 +1,27 @@
+<section class="row wrapper">
+    <h2> DADOS DO USUARIO </h2>
+    <h5 class="center-align">Search the user by ID: {{userDetails.routeParams.id}}</h5>
+<div >
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Code</th>
+            <th>Type</th>
+            <th>Situation</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr>
+            <td>{{userDetails.users[userDetails.routeParams.id].name}}</td>
+            <td>{{userDetails.users[userDetails.routeParams.id].email}}</td>
+            <td>{{userDetails.users[userDetails.routeParams.id].cod}}</td>
+            <td>{{userDetails.users[userDetails.routeParams.id].type}}</td>
+            <td>{{userDetails.users[userDetails.routeParams.id].active}}</td>
+        </tr>
+    </tbody>
+</table>
+</section>
+</div>

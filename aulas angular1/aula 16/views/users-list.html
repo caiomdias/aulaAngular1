@@ -1,0 +1,35 @@
+<h2>Listagem dos Usuarios</h2>
+<section class="row wrapper">
+    <span ng-init="predicate = 'name'; reverse = true;"></span>
+    <table>
+        <thead>
+            <tr>
+                <!--<th colspan="5">
+                    <label><input ng-model="searchUser" placeholder="Search"></label>
+                </th>-->
+            </tr>
+        </thead>
+        <thead>
+            <tr>
+                <th></th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Code</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="user in User.users | filter:searchUser">
+                <td>
+                    <input type="checkbox" id="user-{{ $index }}" ng-model="user.selecionado" />
+                    <label for="user-{{ $index }}"></label>
+                </td>
+                <td><a ng-href="/users/{{$index}}">{{ user.name }}</a></td>
+                <td><a ng-href="/users/{{$index}}">{{ user.email }}</a></td>                
+                <td>{{ user.cod }}</td>
+            </tr>
+        </tbody>
+        </thead>
+    </table>
+    <button ng-click="User.remove(User.users)" class="btn  red waves-effect waves-light col s12" type="submit" name="action">remove
+    </section>

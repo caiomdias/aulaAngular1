@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myapp">
+
+<head>
+    <style>
+        h2 {
+            text-align: center;
+        }
+        
+        .wrapper {
+            width: 600px;
+            margin: 0 auto;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="angular.min.js"></script>
+    <!--Import Google Icon Font-->
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>{{ User.console }}</title>
+
+    <script>
+        var app = angular.module('myapp', [])
+            .controller('userController', userController)
+
+        function userController() {
+            var vm = this;
+            vm.console = "aula de controllers - users -";
+            vm.users = [
+                { name: 'Suissa', email: 'teste01@exemplo.com', cod: '01' },
+                { name: 'João', email: 'teste02@exemplo.com', cod: '02' },
+                { name: 'Franciele', email: 'teste03@exemplo.com', cod: '03' }
+            ];
+
+            function getkeysLength() {
+                return Object.keys(angular.copy(vm.users[0])).length;
+            };
+
+            vm.keysLength = getkeysLength();
+
+            function add(user) {
+                console.log('user', user);
+                vm.users.push(user);
+            };
+
+            vm.add = add;
+
+            function remove(users) {
+                vm.users = users.filter(function (el) {
+                    return !el.selecionado
+                });
+            }
+            vm.remove = remove;
+        }
+    </script>
+</head>
+
+<body ng-controller="userController as User">
+    <section class="row wrapper">
+        <h2> {{ User.console | uppercase }} </h2>
+
+        <p class="col s12">
+            <label>
+            <input type="text" ng-model="form.User.name" placeholder="Name">
+        </label>
+            <label>
+            <input type="text" ng-model="form.User.email" placeholder="Email">
+        </label>
+            <label>
+            <input type="number" ng-model="form.User.cod" placeholder="Code">
+        </label>
+        </p>
+        <button ng-click="User.add(form.User)" class="btn btn-large waves-effect waves-light col s12" type="submit" name="action">Submit
+            </button>
+        <span ng-init="predicate = 'name'; reverse = true;"></span>
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="4">
+                        <label><input ng-model="searchUser" placeholder="Search"></label>
+                    </th>
+                </tr>
+            </thead>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Code</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="user in User.users | orderBy:predicate:reverse | filter:searchUser">
+                    <td>
+                        <input type="checkbox" id="user-{{ $index }}" ng-model="user.selecionado" />
+                        <label for="user-{{ $index }}"></label>
+                    </td>
+                    <td>{{ user.name }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.cod }}</td>
+                </tr>
+            </tbody>
+            </thead>
+        </table>
+        <button ng-click="User.remove(User.users)" class="btn btn-large red waves-effect waves-light col s12" 
+        type="submit" name="action">remove
+    </section>
+    <!--Import jQuery before materialize.js-->
+      <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+      <script type="text/javascript" src="js/materialize.min.js"></script>
+</body>
+</html>

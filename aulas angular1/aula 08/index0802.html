@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="angular.min.js"></script>
+    <!--Import Google Icon Font-->
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <script>
+        var app = angular.module('myApp', ['ngAnimate'])
+            .controller('userController', userController)
+
+        function userController() {
+            var vm = this;
+            vm.titulo = "Be MEAN - Aula de Animação (ngAnimate)";
+        }
+    </script>
+</head>
+
+<body ng-controller="userController as User" class="wrapper">
+
+    <h1>{{ User.titulo }}</h1>
+    <section class="row">
+        <input type="checkbox" id="mostrar" ng-model="myCheck" />
+        <label for="mostrar"> mostrar </label>
+        <p>valor de myCheck: {{ myCheck }}</p>
+        <div class="message" ng-show="myCheck"> alguma menssagem </div>
+
+
+    </section>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-animate.js"></script>
+    <!--Import jQuery before materialize.js-->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+</body>
+</html>

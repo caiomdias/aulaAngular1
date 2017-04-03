@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myapp">
+<head>
+    <style>
+        ul{
+            list-style: none;
+            background-color: cadetblue;
+            padding: 10px 10px 10px 10px;
+            width: 302px;
+            text-align: center;
+        }
+        th{
+            background-color:cadetblue;
+            text-align: center;
+            padding: 10px 10px 10px 10px;
+        }
+        td {
+            background-color: cadetblue;
+            text-align: center;
+            padding: 10px 10px 10px 10px;
+        }
+        table{
+            border: solid mediumseagreen;
+            margin: 5px 5px 5px 5px;
+        }
+
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="angular.min.js"></script>
+    <title>{{ console }}</title>
+
+    <script>
+    var app = angular.module('myapp',[])
+    .controller('userController', userController)
+    .controller('cursoController', cursoController);
+
+    function userController(){
+        var vm = this;
+        vm.console = " aula de controllers - users"
+        vm.users = [
+            {name: 'Suissa', email: 'teste01@exemplo.com', cod:'01'},
+            {name: 'João', email: 'teste02@exemplo.com', cod:'02'},
+            {name: 'Franciele', email: 'teste03@exemplo.com', cod:'03'}
+        ];
+
+        vm.add = add;
+        function add(user){
+               console.log('user', user)
+            vm.users.push(user)
+         
+        }
+
+        function ordernarPor(){
+            var vm = this;
+             
+        }
+    }
+
+    function cursoController(){
+         var vm = this;
+         vm.console = 'aula de controllers - cursos'
+         vm.cursos = [
+            {name: 'Be MEAN', professor: 'carlos', cod:'01'},
+            {name: 'Angular', professor: 'juan', cod:'02'},
+            {name: 'Node.js', professor: 'ana', cod:'03'}
+        ];
+        vm.add = add;
+        function add(){
+            vm.cursos.push({name:'exemplo', professor: 'exemplo',cod:'04'})
+        }
+    }
+    </script>
+</head>
+<body ng-controller="userController as User">
+    <h2> {{ User.console | uppercase }} </h2>
+    
+    <p>
+        <label>name
+            <input type="text" ng-model="form.User.nome" placeholder="nome">
+        </label>
+        <label>email
+            <input type="text " ng-model="form.User.email" placeholder="email">
+        </label>
+        <label>Codigo
+            <input type="number" ng-model="form.User.cod" placeholder="codigo">
+        </label>    
+        <button ng-click="User.add(form.User)">SALVAR</button>
+    </p>
+
+    
+    <label>codigo: <input ng-model="searchCod"></label>
+    <table>
+        <thead>
+            <tr>
+                <th ng-repeat="(key, value) in User.users[0]"><a href="" ng-click="ordernarPor('nome')"></a>{{ key | uppercase }}</th>
+            </tr>
+            <tbody>
+                <tr ng-repeat="user in User.users">
+                    <td ng-repeat="(key, value) in user">{{ value }}</td>
+                </tr>
+            </tbody>
+        </thead>
+    </table>
+    
+
+
+    <div ng-controller="cursoController as Curso">
+    <h2> {{ Curso.console | uppercase }} </h2>
+    <span ng-init="predicate = 'cod';"></span>
+    <label>Busca: <input ng-model="searchCod2"></label>
+     <button ng-click="Curso.add()">SALVAR</button>
+    <table>
+        <thead>
+            <tr>
+                <th ng-repeat="(key, value) in Curso.cursos[0]">{{ key | uppercase }}</th>
+            </tr>
+            <tbody>
+                <tr ng-repeat="user in Curso.cursos">
+                    <td ng-repeat="(key, value) in user">{{ value }}</td>
+                </tr>
+            </tbody>
+        </thead>
+    </table>
+   
+    </div>
+
+</body>
+</html>

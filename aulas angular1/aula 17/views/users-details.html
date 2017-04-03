@@ -1,0 +1,16 @@
+<section class="row wrapper">
+    <h2> DADOS DO USUARIO </h2>
+    <h5 class="center-align">Search the user by ID: {{userDetails.routeParams.id}}</h5>
+    <p class="card-panel center-align">
+        Name: {{userDetails.users[userDetails.routeParams.id].name}}
+        <br> Email: {{userDetails.users[userDetails.routeParams.id].email}}
+        <br> Code: {{userDetails.users[userDetails.routeParams.id].cod}}
+        <br> Type: {{userDetails.users[userDetails.routeParams.id].type}}
+        <br> Active: {{userDetails.users[userDetails.routeParams.id].active}}
+    </p>
+    idindex();
+    <a href="/users/{{$index}}/edit"> update </a>
+        <button ng-href="/users//edit"  class="btn btn-large blue waves-effect waves-light col s12" 
+        type="submit" name="action"> update </button>
+</section>
+</div>

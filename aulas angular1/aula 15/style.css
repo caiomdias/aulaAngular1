@@ -1,0 +1,26 @@
+
+        html body select {
+            display: inline-block;
+        }
+        
+        [disabled] {
+            background-color: #ccc !important;
+        }
+        
+        h2 {
+            text-align: center;
+        }
+        
+        .wrapper {
+            width: 650px;
+            margin: 0 auto;
+        }
+        
+        .ng-valid {
+            background-color: #B4E5C4;
+        }
+        
+        .ng-invalid {
+            background-color: red;
+        }
+        

@@ -1,0 +1,17 @@
+<section class="row wrapper">
+    <h2> DADOS DO USUARIO </h2>
+    </ng-repeat>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="user in userGithub.usuarios">
+                <td>{{ user.name }}</td>
+                <td>{{ user.email }}</td>
+            </tr>
+        </tbody>
+    </table>

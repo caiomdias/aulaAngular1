@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" data-ng-app="beMEAN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="angular.min.js"></script>
+
+    <title>{{ titulo }}</title>
+
+    <script>
+    angular.module('beMEAN', [])
+
+    // cria a função "reverseString"//
+    .filter('reverseString',function(){
+        return function(text){
+            if(text) return text.split("").reverse('').join("");
+        }
+    })
+
+    .filter('truncate', function() {
+      return function(text, length, end) {
+        if(text){
+            if(isNaN(length)) length = 10;
+                if(end === undefined) end = "...";
+                    if(text.length <= length) return text;
+                        else return String(text).substring(0,length) + end;
+                }
+        };
+    });
+    </script>
+</head>
+<body >
+
+    <label for="nome">
+        titulo
+        <input type="text>" ng-model="titulo">
+    </label>
+    <label for="nome">
+        Seu nome:
+        <input type="text>" ng-model="nome">
+        <!--chama a função reverseString como filtro-->
+        OLA MUNDO, {{ nome | uppercase | reverseString | truncate  }} 
+    </label>
+
+
+</body>
+</html>

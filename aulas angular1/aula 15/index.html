@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myapp">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!-- SEMPRE SEGUIR ESSA ORDEM !!!-->
+
+    <!-- Import JQUERY-->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <!-- Import ANGULAR-->
+    <script src="angular.min.js"></script>
+     <!-- Import ngRout-->
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.4/angular-route.js"></script>
+     <!-- Import ngMessages-->
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-messages.js"></script>
+    <!-- Import app.js-->
+    <script src="./app.js"></script>
+    <!-- Import materialize.js-->
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <!-- Import materialize.css-->
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Import style.css-->
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <!-- Import Google Icon Font-->
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
+    <!-- Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>aula 15</title>
+    
+</head>
+
+<body ng-controller="userController as User">
+    <section class="row wrapper">
+        <h1 class="center-align"> AULA 15 ROUTS </h1>
+        <div ng-view=""></div>
+    </section>
+</body>
+</html>

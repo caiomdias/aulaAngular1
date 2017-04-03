@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myapp">
+
+<head>
+    <style>
+        body {
+            width: 310px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 20px;
+        }
+        
+        ul {
+            list-style: none;
+            background-color: cadetblue;
+            width: 302px;
+            text-align: center;
+        }
+        
+        th {
+            background-color: cadetblue;
+            text-align: center;
+            padding: 10px 10px 10px 10px;
+        }
+        
+        td {
+            background-color: cadetblue;
+            text-align: center;
+            padding: 10px 10px 10px 10px;
+        }
+        
+        table {
+            border: solid mediumseagreen;
+            margin-top: 10px;
+        }
+    </style>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="angular.min.js"></script>
+    <title>{{ console }}</title>
+
+    <script>
+        var app = angular.module('myapp', [])
+
+            .controller('userController', userController)
+            .controller('cursoController', cursoController)
+            .controller('teacherController', teacherController);
+
+        // ----------------------------------------------------------------- USER
+        function userController() {
+            var vm = this;
+            vm.console = " aula de controllers - users"
+            vm.users = [
+                { name: 'Suissa', email: 'teste01@exemplo.com', cod: '01' },
+                { name: 'João', email: 'teste02@exemplo.com', cod: '02' },
+                { name: 'Franciele', email: 'teste03@exemplo.com', cod: '03' }
+            ];
+
+            vm.add = add;
+            function add(user) {
+                console.log('user', user)
+                vm.users.push(user)
+
+            }
+                vm.order = order;
+                function order(){
+                order = name.sort(function(a, b) { return a.localeCompare(b) })
+                console.log(order);
+            }
+            
+        }
+        // ----------------------------------------------------------------- CURSO
+        function cursoController() {
+            var vm = this;
+            vm.console = 'aula de controllers - cursos'
+            vm.cursos = [
+                { name: 'Be MEAN', professor: 'carlos', cod: '01' },
+                { name: 'Angular', professor: 'juan', cod: '02' },
+                { name: 'Node.js', professor: 'ana', cod: '03' }
+            ];
+            vm.add = add;
+            function add(curso) {
+                console.log('curso', curso)
+                vm.cursos.push(curso)
+            }
+        }
+
+        // ----------------------------------------------------------------- TEACHER
+        function teacherController() {
+            var vm = this;
+            vm.console = 'aula de controllers - TEACHERs'
+            vm.teachers = [
+                { name: 'carlos ', curso: 'Be MEAN', cod: '01' },
+                { name: 'juan', curso: 'Angular', cod: '02' },
+                { name: 'ana', curso: 'Node.js', cod: '03' }
+            ];
+
+            //          vm.propertyName = 'cod';
+            //          vm.reverse = true;
+            //          vm.friends = friends;
+
+            //         order.order = order;
+            //         order.sortBy = function(propertyName) {
+            //         order.reverse = ($scope.propertyName === propertyName) ? !oder.reverse : false;
+            //         order.propertyName = propertyName;
+            //   };
+        }
+    </script>
+
+</head>
+
+<body ng-controller="userController as User">
+    <h2> {{ User.console | uppercase }} </h2>
+
+    <p>
+        <label>
+            <input type="text" ng-model="form.User.nome" placeholder="nome">
+        </label>name
+        <label>
+            <input type="text " ng-model="form.User.email" placeholder="email">
+        </label>email
+        <label>
+            <input type="number" ng-model="form.User.cod" placeholder="codigo">
+        </label>Codigo
+    </p>
+    <button ng-click="User.add(form.User)">SALVAR</button>
+    <br>
+    <br>
+    <label>Busca: <input ng-model="searchCod"></label>
+    <table>
+        <thead>
+            <tr>
+                <th><a href="" ng-click="User.order()"> NAME </a></th>
+                <th>
+                    EMAIL
+                </th>
+                <th>
+                    CODIGO
+                </th>
+            </tr>
+            <tbody>
+                <tr ng-repeat="user in User.users">
+                    <td ng-repeat="(key, value) in user">{{ value }}</td>
+                </tr>
+            </tbody>
+        </thead>
+    </table>
+
+
+
+
+    <div ng-controller="cursoController as Curso">
+        <h2> {{ Curso.console | uppercase }} </h2>
+        <span ng-init="predicate = 'cod';"></span>
+
+        <p>
+            <label>
+        <input type="text" ng-model="form.Curso.nome" placeholder="nome">
+    </label>name
+
+            <label>
+        <input type="text " ng-model="form.Curso.professor" placeholder="professor">
+    </label>email
+
+            <label>
+        <input type="number" ng-model="form.Curso.cod" placeholder="codigo">
+    </label>Codigo
+        </p>
+        <button ng-click="Curso.add(form.Curso)">SALVAR</button>
+        <br>
+        <br>
+        <label>Busca: <input type="search" ng-model="searchCod"></label>
+        <table>
+            <thead>
+                <tr>
+                    <th ng-repeat="(key, value) in Curso.cursos[0]">
+                        <a href="" ng-click="">
+                        {{ key | uppercase }}
+                        </a></th>
+                </tr>
+                <tbody>
+                    <tr ng-repeat="curso in Curso.cursos">
+                        <td ng-repeat="(key, value) in curso">{{ value }}</td>
+                    </tr>
+                </tbody>
+            </thead>
+        </table>
+
+    </div>
+
+    <div ng-controller="teacherController as Teacher">
+        <h2> {{ Teacher.console | uppercase }} </h2>
+        <span ng-init="predicate = orderClick | orderBy: name"></span>
+
+        <table>
+            <thead>
+                <tr>
+                    <th ng-repeat="(key, value) in Teacher.teachers[0]">
+                        <a href="" ng-click="orderClick">
+                        {{ key | uppercase }}
+                        </a></th>
+                </tr>
+                <tbody>
+                    <tr ng-repeat="teacher in Teacher.teachers | orderBy: 'o'">
+                        <td ng-repeat="(key, value) in teacher">{{ value }}</td>
+                    </tr>
+                </tbody>
+            </thead>
+        </table>
+
+    </div>
+
+</body>
+
+</html>

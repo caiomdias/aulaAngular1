@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myapp">
+
+<head>
+    <style>
+        html body select {
+            display: inline-block;
+        }
+        
+        [disabled] {
+            background-color: #ccc !important;
+        }
+        
+        h2 {
+            text-align: center;
+        }
+        
+        .wrapper {
+            width: 650px;
+            margin: 0 auto;
+        }
+        
+        .ng-valid {
+            background-color: #B4E5C4;
+        }
+        
+        .ng-invalid {
+            background-color: red;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="angular.min.js"></script>
+    <!--Import Google Icon Font-->
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Import ngMessages-->
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/X.Y.Z/angular-messages.js"></script>
+    <title>{{ User.console }}</title>
+
+    <script>
+        var app = angular.module('myapp', ['ngMessages'])
+            .controller('userController', userController)
+
+        function userController() {
+            var vm = this;
+            vm.form = {};
+            vm.console = "CRUD";
+            vm.editing = false;
+            vm.regexPhone = /9?([0-9]{4})-?([0-9]{4})/;
+            vm.users = [
+                { name: 'Suissa', email: 'teste01@exemplo.com', cod: '01', type: 'teacher', active: 'true' },
+                { name: 'João', email: 'teste02@exemplo.com', cod: '02', type: 'teacher', active: 'false' },
+                { name: 'Franciele', email: 'teste03@exemplo.com', cod: '03', type: 'teacher', active: 'false' },
+                { name: 'caio', email: 'teste04@exemplo.com', cod: '04', type: 'student', active: 'true' },
+                { name: 'amanda', email: 'teste05@exemplo.com', cod: '05', type: 'student', active: 'true' }
+            ];
+
+            function add(user) {
+                vm.users.push(user);
+            };
+
+            vm.add = add;
+
+
+            function remove(users) {
+                vm.users = users.filter(function (el) {
+                    return !el.selecionado
+                });
+            }
+            vm.remove = remove;
+
+            function edit(user, index) {
+                vm.editing = true;
+                vm.form = angular.copy(user);
+                vm.form.index = index;
+            };
+            vm.edit = edit;
+
+            function save(form) {
+                vm.users.forEach(function (value, index, array) {
+                    if (index == form.index) {
+                        delete form.index;
+                        array[index] = form;
+                        vm.editing = false;
+                    }
+
+                });
+            }
+            vm.save = save;
+
+            function submitForm(user) {
+                add(user);
+            };
+            vm.submitForm = submitForm;
+
+        }
+    </script>
+</head>
+
+<body ng-controller="userController as User">
+    <section class="row wrapper">
+
+        <!-- ------------------------------ collapse------------------------------------------------ -->
+        <ul class="collapsible" data-collapsible="accordion">
+            <li>
+                <div class="collapsible-header">CRUD INFO</div>
+                <div class="collapsible-body"><span>
+                 <p>A aula de<a href="http://localhost:8080/index0701.index.html"> {{ User.console | uppercase }} </a> tem a finalidade
+                 de ensinar o aluno o conteudo basico de uma aplicação como ADD, UPDATE, DELETE E SEARCH</p></span></div>
+            </li>
+        </ul>
+        <!-- ------------------------------ collapse------------------------------------------------ -->
+
+        <!-- ------------------------------ SELECT ------------------------------------------------ -->
+        <select ng-model="User.selected" ng-options="user.email as user.name for user in User.users">
+            <option value=""> Usuarios </option>
+        </select>
+        <p>
+            model: {{User.selected}}
+        </p>
+        <!-- ------------------------------ sELECT ------------------------------------------------ -->
+
+
+        <form name="User.userForm" ng-submit="User.submitForm(User.form)">
+            <div>
+                <input type="text" name="phone" ng-pattern="User.regexPhone" maxlength="8" ng-model="User.form.phone" placeholder="Phone" required>
+                <p ng-show="User.userForm.phone.$error.pattern">
+                    tellelefone invalido
+                </p>
+            </div>
+        </form>
+
+        <span ng-init="predicate = 'name'; reverse = true;"></span>
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="5">
+                        <label><input ng-model="searchUser" placeholder="Search"></label>
+                    </th>
+                </tr>
+            </thead>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Code</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="user in User.users | filter:searchUser">
+                    <td>
+                        <input type="checkbox" id="user-{{ $index }}" ng-model="user.selecionado" />
+                        <label for="user-{{ $index }}"></label>
+                    </td>
+                    <td>{{ user.name }}</td>
+                    <td>{{ user.email }}</td>
+                    <td>{{ user.cod }}</td>
+                    <td> <button ng-click="User.edit(user, $index)" class="btn blue waves-effect waves-light col s12" type="submit"
+                            name="action">Update</button>
+                    </td>
+                </tr>
+            </tbody>
+            </thead>
+        </table>
+        <button ng-click="User.remove(User.users)" class="btn  red waves-effect waves-light col s12" type="submit" name="action">remove
+    </section>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.js"></script>
+    <!--Import jQuery before materialize.js-->
+      <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+      <script type="text/javascript" src="js/materialize.min.js"></script>
+</body>
+</html>

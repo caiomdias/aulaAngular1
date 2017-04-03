@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myapp">
+
+<head>
+    <style>
+        h2 {
+            text-align: center;
+        }
+        
+        .wrapper {
+            width: 600px;
+            margin: 0 auto;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="angular.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.1/css/materialize.min.css">
+
+    <title>{{ User.console }}</title>
+
+    <script>
+        var app = angular.module('myapp', [])
+            .controller('userController', userController)
+
+        function userController() {
+            var vm = this;
+            vm.console = "aula de controllers - users -";
+            vm.users = [
+                { name: 'Suissa', email: 'teste01@exemplo.com', cod: '01' },
+                { name: 'João', email: 'teste02@exemplo.com', cod: '02' },
+                { name: 'Franciele', email: 'teste03@exemplo.com', cod: '03' }
+            ];
+
+             function getkeysLength(){
+                return Object.keys(angular.copy(vm.users[0])).length;
+            };
+
+            vm.keysLength = getkeysLength();
+
+            function add(user) {
+                console.log('user', user);
+                vm.users.push(user);
+            };
+
+            vm.add = add;
+
+           
+
+             function removeByEmail(email) {
+                    vm.users = vm.users.filter(function(el){
+                         return el.email !== email});
+                       
+                    };
+                        
+            vm.removeByEmail = removeByEmail;
+        }
+    </script>
+</head>
+
+<body ng-controller="userController as User">
+    <div class="row wrapper">
+        <h2> {{ User.console | uppercase }} </h2>
+
+        <p class="col s12">
+            <label>name
+            <input type="text" ng-model="form.User.nome">
+        </label>
+            <label>email
+            <input type="text" ng-model="form.User.email">
+        </label>
+            <label>Codigo
+            <input type="number" ng-model="form.User.cod">
+        </label>
+        </p>
+        <button ng-click="User.add(form.User)" class="btn btn-large waves-effect waves-light col s12" type="submit" name="action">Submit
+            </button>
+        <!-- __________________________________________________ CRUD ADD _____________________________________________________________ -->
+        <span ng-init="predicate = 'name'; reverse = true;"></span>
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="{{ User.keysLength +1 }}">
+                        <label>Bsuca:<input ng-model="searchUser"></label>
+                    </th>
+                </tr>
+            </thead>
+            <thead>
+                <tr>
+                    <th ng-repeat="(key, value) in User.users[0]">{{ key | uppercase }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="user in User.users | orderBy:predicate:reverse | filter:searchUser">
+                    <td ng-repeat="(key, value) in user">{{ value }}</td>
+                    <td>
+                        <button ng-click="User.removeByEmail(this.user.email)" class="btn btn-large red waves-effect waves-light col s12" type="submit"
+                            name="action">remove
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+            </thead>
+        </table>
+    </div>
+</body>
+<!-- __________________________________________________ CRUD SEARCH _____________________________________________________________ -->
+
+</html>
